@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "btr.application", "btr.appl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "btr.infrastructure", "btr.infrastructure\btr.infrastructure.csproj", "{55A8A4CA-FC45-4143-A526-79ADF7628480}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "btr.sql", "btr.sql\btr.sql.sqlproj", "{6D4731A8-43BC-41B8-9E60-5F3E78F9F155}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +35,17 @@ Global
 		{55A8A4CA-FC45-4143-A526-79ADF7628480}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55A8A4CA-FC45-4143-A526-79ADF7628480}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55A8A4CA-FC45-4143-A526-79ADF7628480}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D4731A8-43BC-41B8-9E60-5F3E78F9F155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D4731A8-43BC-41B8-9E60-5F3E78F9F155}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D4731A8-43BC-41B8-9E60-5F3E78F9F155}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6D4731A8-43BC-41B8-9E60-5F3E78F9F155}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D4731A8-43BC-41B8-9E60-5F3E78F9F155}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D4731A8-43BC-41B8-9E60-5F3E78F9F155}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CF0B4184-49C3-497D-8E17-F822137A56BF}
 	EndGlobalSection
 EndGlobal
