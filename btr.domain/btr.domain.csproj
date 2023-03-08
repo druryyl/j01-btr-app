@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="FinanceContext\" />
     <Folder Include="SalesContext\" />
-    <Folder Include="PurchasingContext\" />
   </ItemGroup>
 
   <ItemGroup>
