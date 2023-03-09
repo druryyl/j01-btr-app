@@ -64,4 +64,7 @@
   <ItemGroup>
     <None Include="Database\create-login.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Tables\PuchasingContext\BTRPC_Supplier.sql" />
+  </ItemGroup>
 </Project>

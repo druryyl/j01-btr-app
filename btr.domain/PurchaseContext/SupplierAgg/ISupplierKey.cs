@@ -1,4 +1,4 @@
-﻿namespace btr.domain.PurchasingContext.SupplierAgg;
+﻿namespace btr.domain.PurchaseContext.SupplierAgg;
 
 public interface ISupplierKey
 {

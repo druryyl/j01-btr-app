@@ -7,12 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="PurchasingContext\SupplierAgg\Contracts\" />
-    <Folder Include="PurchasingContext\SupplierAgg\Workers\" />
+    <Folder Include="PurchaseContext\SupplierAgg\Contracts\" />
+    <Folder Include="PurchaseContext\SupplierAgg\Workers\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dawn.Guard" Version="1.12.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" />
     <PackageReference Include="MediatR" Version="12.0.1" />
+    <PackageReference Include="Nuna.Lib.NetStandard" Version="1.0.104" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\btr.domain\btr.domain.csproj" />
   </ItemGroup>
 
 </Project>
