@@ -19,7 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		context-design-btr-app.md = context-design-btr-app.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "btr.test", "btr.test\btr.test.csproj", "{9403C973-649D-485F-BBF1-D9EA74B5510C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "btr.test", "btr.test\btr.test.csproj", "{9403C973-649D-485F-BBF1-D9EA74B5510C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{A36D8D48-20DB-4E2E-8EB7-E8AD7F239FC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FF4076C0-1315-49FE-BAAF-774372824991}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{221E1607-FBB0-4844-BB18-925484AF59E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +62,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D32ACCBD-8AFA-405C-BF10-B862C581B27F} = {FF4076C0-1315-49FE-BAAF-774372824991}
+		{D080B21C-4B90-47E0-9969-5C121BE67203} = {FF4076C0-1315-49FE-BAAF-774372824991}
+		{B92EC186-B24D-4045-B452-11FFCEDFE692} = {FF4076C0-1315-49FE-BAAF-774372824991}
+		{55A8A4CA-FC45-4143-A526-79ADF7628480} = {FF4076C0-1315-49FE-BAAF-774372824991}
+		{6D4731A8-43BC-41B8-9E60-5F3E78F9F155} = {A36D8D48-20DB-4E2E-8EB7-E8AD7F239FC0}
+		{9403C973-649D-485F-BBF1-D9EA74B5510C} = {221E1607-FBB0-4844-BB18-925484AF59E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF0B4184-49C3-497D-8E17-F822137A56BF}
