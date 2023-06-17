@@ -7,8 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="FinanceContext\" />
-    <Folder Include="SalesContext\" />
+    <Folder Include="FinanceContext\HutangAgg\" />
+    <Folder Include="FinanceContext\CreaditNoteAgg\" />
+    <Folder Include="FinanceContext\PiutangAgg\" />
+    <Folder Include="InventoryContext\DeliveryAgg\" />
+    <Folder Include="InventoryContext\GoodReceivingAgg\" />
+    <Folder Include="InventoryContext\WarehouseAgg\" />
+    <Folder Include="PurchaseContext\InvoiceAgg\" />
+    <Folder Include="PurchaseContext\KlaimAgg\" />
+    <Folder Include="PurchaseContext\PrinsipalAgg\" />
+    <Folder Include="PurchaseContext\PurchaseOrderAgg\" />
+    <Folder Include="SalesContext\FakturJualAgg\" />
+    <Folder Include="SalesContext\OutletAgg\" />
   </ItemGroup>
 
   <ItemGroup>
