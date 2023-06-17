@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace btr.domain.InventoryContext.BrgAgg;
 
-public class BrgModel
+public class BrgModel : IBrgKey
 {
     public string BrgId { get; set; }
     public string BrgName { get; set;}
     public IEnumerable<BrgSatuanModel> ListSatuan { get; set; }
+}
+
+public interface IBrgKey
+{
+    string BrgId { get; set; }
 }

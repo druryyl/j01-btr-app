@@ -57,14 +57,12 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Database" />
+    <Folder Include="Tables\PurchaseContext\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Database\create-database.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database\create-login.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Tables\PuchasingContext\BTRPC_Supplier.sql" />
   </ItemGroup>
 </Project>
