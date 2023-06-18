@@ -90,9 +90,7 @@ public class SalesPersonDal : ISalesPersonDal
             SELECT
                 SalesPersonId, SalesPersonName
             FROM
-                BTR_SalesPerson
-            WHERE
-                SalesPersonId = @SalesPersonId ";
+                BTR_SalesPerson";
 
         using var conn = new SqlConnection(ConnStringHelper.Get(_opt));
         return conn.Read<SalesPersonModel>(sql);

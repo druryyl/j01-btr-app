@@ -66,4 +66,7 @@
   <ItemGroup>
     <None Include="Database\create-login.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Tables\Helper\BTR_ParamNo.sql" />
+  </ItemGroup>
 </Project>

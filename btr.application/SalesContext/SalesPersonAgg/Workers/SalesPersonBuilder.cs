@@ -7,8 +7,9 @@ namespace btr.application.SalesContext.SalesPersonAgg.Workers;
 
 public interface ISalesPersonBuilder : INunaBuilder<SalesPersonModel>
 {
-    ISalesPersonBuilder CreateNew(string name);
+    ISalesPersonBuilder CreateNew();
     ISalesPersonBuilder Load(ISalesPersonKey salesPersonKey);
+    ISalesPersonBuilder Name(string name);
 }
 public class SalesPersonBuilder : ISalesPersonBuilder
 {
@@ -26,19 +27,27 @@ public class SalesPersonBuilder : ISalesPersonBuilder
         return _aggRoot;
     }
 
-    public ISalesPersonBuilder CreateNew(string name)
+    public ISalesPersonBuilder CreateNew()
     {
         _aggRoot = new SalesPersonModel
         {
-            SalesPersonName = name
+            SalesPersonName = string.Empty,
+            SalesPersonId = string.Empty
         };
         return this;
     }
 
+    
     public ISalesPersonBuilder Load(ISalesPersonKey salesPersonKey)
     {
         _aggRoot = _salesPersonDal.GetData(salesPersonKey)
                    ?? throw new KeyNotFoundException($"SalesPersonId not found ({salesPersonKey.SalesPersonId})");
+        return this;
+    }
+
+    public ISalesPersonBuilder Name(string name)
+    {
+        _aggRoot.SalesPersonName = name;
         return this;
     }
 }
