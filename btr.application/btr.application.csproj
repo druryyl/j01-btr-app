@@ -7,9 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="InventoryContext\WarehouseAgg\UseCases\" />
+    <Folder Include="InventoryContext\WarehouseAgg\Workers\" />
     <Folder Include="PurchaseContext\SupplierAgg\Contracts\" />
     <Folder Include="PurchaseContext\SupplierAgg\UseCases\" />
     <Folder Include="PurchaseContext\SupplierAgg\Workers\" />
+    <Folder Include="SalesContext\FakturAgg\Contracts\" />
   </ItemGroup>
 
   <ItemGroup>
