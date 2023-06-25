@@ -10,24 +10,23 @@ public class FakturQtyHargaModel : IFakturKey,
     }
 
     public FakturQtyHargaModel(int qtyHargaNo, string brgId, string satuan, 
-        int konversiSatuan, int qty, double hargaJual)
+        int conversion, int qty, double hargaJual)
     {
-        QtyHargaNo = qtyHargaNo;
+        NoUrut = qtyHargaNo;
         BrgId = brgId;
         Satuan = satuan;
-        KonversiSatuan = konversiSatuan;
+        Conversion = conversion;
         Qty = qty;
         HargaJual = hargaJual;
     }
     public string FakturId { get; set; }
     public string FakturItemId { get; set; }
-    public string FakturStokHargaId { get; set; }
-    public int ItemNo { get; set; }
-    public int QtyHargaNo { get; set; }
+    public string FakturQtyHargaId { get; set; }
+    public int NoUrut { get; set; }
     
     public string BrgId { get; set; }
     public string Satuan { get; set; }
-    public int KonversiSatuan { get; set; } 
+    public int Conversion { get; set; } 
     public int Qty { get; set; }
     public double HargaJual { get; set; }
 }

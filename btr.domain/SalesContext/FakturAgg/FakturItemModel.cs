@@ -4,9 +4,10 @@ namespace btr.domain.SalesContext.FakturAgg;
 
 public class FakturItemModel : IFakturKey, IFakturItemKey, IBrgKey
 {
-    public string FakturItemId { get; set; }
     public string FakturId { get; set; }
-    public int ItemNo { get; set; }
+    public string FakturItemId { get; set; }
+    public int NoUrut { get; set; }
+
     public string BrgId { get; set; }
     public string BrgName { get; set; }
     

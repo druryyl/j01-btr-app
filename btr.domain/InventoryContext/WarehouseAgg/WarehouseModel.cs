@@ -2,6 +2,6 @@
 
 public class WarehouseModel : IWarehouseKey
 {
-    public string WarehouseId { get; }
+    public string WarehouseId { get; set; }
     public string WarehouseName { get; set; }
 }

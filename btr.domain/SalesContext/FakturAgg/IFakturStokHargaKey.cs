@@ -2,5 +2,5 @@
 
 public interface IFakturStokHargaKey
 {
-    string FakturStokHargaId { get; }
+    string FakturQtyHargaId { get; }
 }

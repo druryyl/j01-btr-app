@@ -107,10 +107,10 @@ public class FakturBuilder : IFakturBuilder
     public IFakturBuilder AddItem(IBrgKey brgKey, string qtyString, 
         string discountString, double ppnProsen)
     {
-        var itemNoMax = _aggRoot.ListItem
-            .DefaultIfEmpty(new FakturItemModel() { ItemNo = 0 })
-            .Max(x => x.ItemNo);
-        var itemNo = itemNoMax + 1;
+        var noUrutMax = _aggRoot.ListItem
+            .DefaultIfEmpty(new FakturItemModel() { NoUrut = 0 })
+            .Max(x => x.NoUrut);
+        var noUrut = noUrutMax + 1;
         
         var brg = _brgDal.GetData(brgKey)
             ?? throw new KeyNotFoundException($"BrgId not found ({brgKey.BrgId})");
@@ -118,10 +118,10 @@ public class FakturBuilder : IFakturBuilder
         {
             BrgId = brgKey.BrgId,
             BrgName = brg.BrgName,
-            ItemNo = itemNo,
+            NoUrut = noUrut,
             ListQtyHarga = GenListStokHarga(brg, qtyString).ToList(),
         };
-        newItem.Qty = newItem.ListQtyHarga.Sum(x => x.Qty * x.KonversiSatuan);
+        newItem.Qty = newItem.ListQtyHarga.Sum(x => x.Qty * x.Conversion);
         newItem.SubTotal = newItem.ListQtyHarga.Sum(x => x.Qty * x.HargaJual);
 
         newItem.ListDiscount = GenListDiscount(newItem.SubTotal, discountString).ToList();
@@ -171,8 +171,8 @@ public class FakturBuilder : IFakturBuilder
         {
             new FakturDiscountModel(1, discs[0], discRp[0]),
             new FakturDiscountModel(2, discs[1], discRp[1]),
-            new FakturDiscountModel(3,discs[2], discRp[2]),
-            new FakturDiscountModel(4,discs[3], discRp[3])
+            new FakturDiscountModel(3, discs[2], discRp[2]),
+            new FakturDiscountModel(4, discs[3], discRp[3])
         };
         result.RemoveAll(x => x.DiscountProsen == 0);
         return result;

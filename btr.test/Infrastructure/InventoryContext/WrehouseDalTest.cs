@@ -1,29 +1,27 @@
-﻿using btr.domain.SalesContext.CustomerAgg;
-using btr.infrastructure.SalesContext.CustomerAgg;
+﻿using btr.domain.InventoryContext.WarehouseAgg;
+using btr.infrastructure.InventoryAgg;
 using btr.test.Helpers;
 using FluentAssertions;
 using Microsoft.Extensions.Options;
 using Nuna.Lib.TransactionHelper;
 
-namespace btr.test.Infrastructure.SalesContext.CustomerAgg;
+namespace btr.test.Infrastructure.InventoryContext;
 
-public class CustomerDalTest
+public class WarehouseDalTest
 {
-    private readonly CustomerDal _sut;
+    private readonly WarehouseDal _sut;
 
-    public CustomerDalTest()
+    public WarehouseDalTest()
     {
         var opt = Options.Create(AppSettingsHelper.GetDatabaseOptions());
-        _sut = new CustomerDal(opt);
+        _sut = new WarehouseDal(opt);
     }
 
-    private static CustomerModel Faker() =>
-        new CustomerModel
+    private static WarehouseModel Faker() =>
+        new WarehouseModel
         {
-            CustomerId = "A",
-            CustomerName = "B",
-            Plafond = 5250000,
-            CreditBalance = 2750000
+            WarehouseId = "A",
+            WarehouseName = "B",
         };
     
     [Fact]
@@ -63,6 +61,6 @@ public class CustomerDalTest
         using var trans = TransHelper.NewScope();
         _sut.Insert(Faker());
         var actual = _sut.ListData();
-        actual.Should().BeEquivalentTo(new List<CustomerModel>{Faker()});
+        actual.Should().BeEquivalentTo(new List<WarehouseModel>{Faker()});
     }
 }

@@ -46,18 +46,18 @@ public class FakturWriter : IFakturWriter
         foreach (var item in model.ListItem)
         {
             item.FakturId = model.FakturId;
-            item.FakturItemId = $"{model.FakturId}-{item.ItemNo:D2}";
+            item.FakturItemId = $"{model.FakturId}-{item.NoUrut:D2}";
             foreach (var item2 in item.ListQtyHarga)
             {
                 item2.FakturId = model.FakturId;
                 item2.FakturItemId = item.FakturItemId;
-                item2.FakturStokHargaId = $"{item.FakturItemId}-{item2.QtyHargaNo:D1}";
+                item2.FakturQtyHargaId = $"{item.FakturItemId}-{item2.NoUrut:D1}";
             }
             foreach (var item2 in item.ListDiscount)
             {
                 item2.FakturId = model.FakturId;
                 item2.FakturItemId = item.FakturItemId;
-                item2.FakturDiscountId = $"{item.FakturItemId}-{item2.DiscountNo:D1}";
+                item2.FakturDiscountId = $"{item.FakturItemId}-{item2.NoUrut:D1}";
             }
         }
         var allStokHarga = model.ListItem.SelectMany(x => x.ListQtyHarga, (hdr, dtl) => dtl);
