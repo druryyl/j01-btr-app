@@ -15,5 +15,5 @@ public class BrgModel : IBrgKey
 
 public interface IBrgKey
 {
-    string BrgId { get; set; }
+    string BrgId { get; }
 }

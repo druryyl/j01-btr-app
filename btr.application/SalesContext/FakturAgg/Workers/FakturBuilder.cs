@@ -1,6 +1,7 @@
 ﻿using btr.application.InventoryContext.WarehouseAgg.Contracts;
 using btr.application.SalesContext.CustomerAgg.Contracts;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
+using btr.domain.InventoryContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
 using btr.domain.SalesContext.FakturAgg;
 using btr.domain.SalesContext.OutletAgg;
@@ -14,11 +15,13 @@ namespace btr.application.SalesContext.FakturAgg.Workers;
 public interface IFakturBuilder : INunaBuilder<FakturModel>
 {
     IFakturBuilder CreateNew(IUserKey userKey);
+    IFakturBuilder Attach(FakturModel faktur);
     IFakturBuilder FakturDate(DateTime fakturDate);
     IFakturBuilder Customer(ICustomerKey customerKey);
     IFakturBuilder SalesPerson(ISalesPersonKey salesPersonKey);
     IFakturBuilder Warehouse(IWarehouseKey warehouseKey);
-    
+    IFakturBuilder AddItem(IBrgKey brgKey, string qtyString, string discountString, double ppnProsen);
+
 }
 public class FakturBuilder : IFakturBuilder
 {
@@ -50,28 +53,57 @@ public class FakturBuilder : IFakturBuilder
         _aggRoot = new FakturModel
         {
             CreateTime = _dateTime.Now,
-            LastUpdate = new DateTime(3000,1,1),
-            UserId = 
-        }
+            LastUpdate = new DateTime(3000, 1, 1),
+            UserId = userKey.UserId
+        };
+        return this;
+    }
+
+    public IFakturBuilder Attach(FakturModel faktur)
+    {
+        _aggRoot = faktur;
+        return this;
     }
 
     public IFakturBuilder FakturDate(DateTime fakturDate)
     {
-        throw new NotImplementedException();
+        _aggRoot.FakturDate = fakturDate;
+        return this;
     }
 
     public IFakturBuilder Customer(ICustomerKey customerKey)
     {
-        throw new NotImplementedException();
+        var customer = _customerDal.GetData(customerKey)
+            ?? throw new KeyNotFoundException($"CustomerId not found ({customerKey.CustomerId})");
+        _aggRoot.CustomerId = customer.CustomerId;
+        _aggRoot.CustomerName = customer.CustomerName;
+        _aggRoot.Plafond = customer.Plafond;
+        _aggRoot.CreditBalance = customer.CreditBalance;
+        return this;
     }
 
     public IFakturBuilder SalesPerson(ISalesPersonKey salesPersonKey)
     {
-        throw new NotImplementedException();
+        var salesPerson = _salesPersonDal.GetData(salesPersonKey)
+            ?? throw new KeyNotFoundException($"SalesPersonId not found ({salesPersonKey.SalesPersonId})");
+        _aggRoot.SalesPersonId = salesPerson.SalesPersonId;
+        _aggRoot.SalesPersonName = salesPerson.SalesPersonName;
+        return this;
     }
 
     public IFakturBuilder Warehouse(IWarehouseKey warehouseKey)
     {
+        var warehouse = _warehouseDal.GetData(warehouseKey)
+            ?? throw new KeyNotFoundException($"WarehouseId not found ({warehouseKey.WarehouseId})");
+        _aggRoot.WarehouseId = warehouse.WarehouseId;
+        _aggRoot.WarehouseName = warehouse.WarehouseName;
+        return this;
+    }
+
+    public IFakturBuilder AddItem(IBrgKey brgKey, string qtyString, 
+        string discountString, double ppnProsen)
+    {
+        //  nomor urut set di sini juga
         throw new NotImplementedException();
     }
 }

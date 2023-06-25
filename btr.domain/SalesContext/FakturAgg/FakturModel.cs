@@ -7,7 +7,7 @@ namespace btr.domain.SalesContext.FakturAgg;
 public class FakturModel : IFakturKey, ISalesPersonKey, ICustomerKey, IWarehouseKey
 {
     public string FakturId { get; set; }
-    public string FakturDate { get; set; }
+    public DateTime FakturDate { get; set; }
     
     public string SalesPersonId { get; set; }
     public string SalesPersonName { get; set; }
