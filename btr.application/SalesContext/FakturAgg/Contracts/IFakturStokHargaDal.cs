@@ -4,8 +4,8 @@ using Nuna.Lib.DataAccessHelper;
 namespace btr.application.SalesContext.FakturAgg.Contracts;
 
 public interface  IFakturStokHargaDal :
-    IInsertBulk<FakturStokHargaModel>,
+    IInsertBulk<FakturQtyHargaModel>,
     IDelete<IFakturKey>,
-    IListData<FakturStokHargaModel, IFakturKey>
+    IListData<FakturQtyHargaModel, IFakturKey>
 {
 }

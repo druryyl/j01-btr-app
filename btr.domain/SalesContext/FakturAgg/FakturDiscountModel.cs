@@ -3,6 +3,16 @@
 public class FakturDiscountModel : IFakturKey, 
     IFakturItemKey, IFakturDiscountKey
 {
+    public FakturDiscountModel()
+    {
+    }
+
+    public FakturDiscountModel(int discountNo, double discountProsen, double discountRp)
+    {
+        DiscountNo = discountNo;
+        DiscountProsen = discountProsen;
+        DiscountRp = discountRp;
+    }
     public string FakturId { get; set; }
     public string FakturItemId { get; set; }
     public string FakturDiscountId { get; set; }

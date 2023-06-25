@@ -19,6 +19,6 @@ public class FakturItemModel : IFakturKey, IFakturItemKey, IBrgKey
     public double PpnRp { get; set; }
     public double Total { get; set; }
     
-    public List<FakturStokHargaModel> ListStokHarga { get; set; }
+    public List<FakturQtyHargaModel> ListQtyHarga { get; set; }
     public List<FakturDiscountModel> ListDiscount { get; set; }
 }

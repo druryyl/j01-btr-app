@@ -47,11 +47,11 @@ public class FakturWriter : IFakturWriter
         {
             item.FakturId = model.FakturId;
             item.FakturItemId = $"{model.FakturId}-{item.ItemNo:D2}";
-            foreach (var item2 in item.ListStokHarga)
+            foreach (var item2 in item.ListQtyHarga)
             {
                 item2.FakturId = model.FakturId;
                 item2.FakturItemId = item.FakturItemId;
-                item2.FakturStokHargaId = $"{item.FakturItemId}-{item2.StokHargaNo:D1}";
+                item2.FakturStokHargaId = $"{item.FakturItemId}-{item2.QtyHargaNo:D1}";
             }
             foreach (var item2 in item.ListDiscount)
             {
@@ -60,7 +60,7 @@ public class FakturWriter : IFakturWriter
                 item2.FakturDiscountId = $"{item.FakturItemId}-{item2.DiscountNo:D1}";
             }
         }
-        var allStokHarga = model.ListItem.SelectMany(x => x.ListStokHarga, (hdr, dtl) => dtl);
+        var allStokHarga = model.ListItem.SelectMany(x => x.ListQtyHarga, (hdr, dtl) => dtl);
         var allDiscount = model.ListItem.SelectMany(x => x.ListDiscount, (hdr, dtl) => dtl);
         
         //  WRITE

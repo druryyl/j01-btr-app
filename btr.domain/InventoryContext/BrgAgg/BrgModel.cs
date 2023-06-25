@@ -10,7 +10,16 @@ public class BrgModel : IBrgKey
 {
     public string BrgId { get; set; }
     public string BrgName { get; set;}
-    public IEnumerable<BrgSatuanModel> ListSatuan { get; set; }
+    public List<BrgSatuanModel> ListSatuan { get; set; }
+    public List<BrgHargaJualModel> ListHarga { get; set; }
+}
+
+
+public class BrgHargaJualModel
+{
+    public string BrgId { get; set; }
+    public string Satuan { get; set; }
+    public double HargaJual { get; set; }
 }
 
 public interface IBrgKey
