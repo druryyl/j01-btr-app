@@ -62,6 +62,7 @@ public class CreateFakturHandler : IRequestHandler<CreateFakturCommand, CreateFa
             .Customer(request)
             .SalesPerson(request)
             .Warehouse(request)
+            .TglRencanaKirim(request.RencanaKirimDate.ToDate(DateFormatEnum.YMD))
             .Build();
         foreach (var item in request.ListBrg)
         {

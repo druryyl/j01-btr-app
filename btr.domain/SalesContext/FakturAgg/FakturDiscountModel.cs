@@ -7,9 +7,10 @@ public class FakturDiscountModel : IFakturKey,
     {
     }
 
-    public FakturDiscountModel(int discountNo, double discountProsen, double discountRp)
+    public FakturDiscountModel(int discountNo, string brgId, double discountProsen, double discountRp)
     {
         NoUrut = discountNo;
+        BrgId = brgId;
         DiscountProsen = discountProsen;
         DiscountRp = discountRp;
     }

@@ -22,6 +22,7 @@ public interface IFakturBuilder : INunaBuilder<FakturModel>
     IFakturBuilder Customer(ICustomerKey customerKey);
     IFakturBuilder SalesPerson(ISalesPersonKey salesPersonKey);
     IFakturBuilder Warehouse(IWarehouseKey warehouseKey);
+    IFakturBuilder TglRencanaKirim(DateTime tglRencanaKirim);
     IFakturBuilder AddItem(IBrgKey brgKey, string qtyString, string discountString, double ppnProsen);
 
 }
@@ -106,6 +107,12 @@ public class FakturBuilder : IFakturBuilder
         return this;
     }
 
+    public IFakturBuilder TglRencanaKirim(DateTime tglRencanaKirim)
+    {
+        _aggRoot.TglRencanaKirim = tglRencanaKirim;
+        return this;
+    }
+
     public IFakturBuilder AddItem(IBrgKey brgKey, string qtyString, 
         string discountString, double ppnProsen)
     {
@@ -125,7 +132,7 @@ public class FakturBuilder : IFakturBuilder
         newItem.Qty = newItem.ListQtyHarga.Sum(x => x.Qty * x.Conversion);
         newItem.SubTotal = newItem.ListQtyHarga.Sum(x => x.Qty * x.HargaJual);
 
-        newItem.ListDiscount = GenListDiscount(newItem.SubTotal, discountString).ToList();
+        newItem.ListDiscount = GenListDiscount(brgKey.BrgId, newItem.SubTotal, discountString).ToList();
         newItem.DiscountRp = newItem.ListDiscount.Sum(x => x.DiscountRp);
         newItem.PpnProsen = 11;
         newItem.PpnRp = (newItem.SubTotal - newItem.DiscountRp) * 0.11;
@@ -155,7 +162,7 @@ public class FakturBuilder : IFakturBuilder
         return result;
     }
     
-    private static IEnumerable<FakturDiscountModel> GenListDiscount(double subTotal, string disccountString)
+    private static IEnumerable<FakturDiscountModel> GenListDiscount(string brgId, double subTotal, string disccountString)
     {
         var discs = ParseStringMultiNumber(disccountString, 4);
 
@@ -170,10 +177,10 @@ public class FakturBuilder : IFakturBuilder
 
         var result = new List<FakturDiscountModel>
         {
-            new FakturDiscountModel(1, discs[0], discRp[0]),
-            new FakturDiscountModel(2, discs[1], discRp[1]),
-            new FakturDiscountModel(3, discs[2], discRp[2]),
-            new FakturDiscountModel(4, discs[3], discRp[3])
+            new FakturDiscountModel(1, brgId, discs[0], discRp[0]),
+            new FakturDiscountModel(2, brgId, discs[1], discRp[1]),
+            new FakturDiscountModel(3, brgId, discs[2], discRp[2]),
+            new FakturDiscountModel(4, brgId, discs[3], discRp[3])
         };
         result.RemoveAll(x => x.DiscountProsen == 0);
         return result;
@@ -189,7 +196,7 @@ public class FakturBuilder : IFakturBuilder
         var x = 0;
         foreach (var item in resultStr.TakeWhile(item => x < result.Count))
         {
-            if (int.TryParse(item, out var temp))
+            if (double.TryParse(item, out var temp))
                 result[x] = temp;
             x++;
         }
