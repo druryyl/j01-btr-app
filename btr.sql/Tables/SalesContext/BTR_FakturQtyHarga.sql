@@ -13,3 +13,8 @@
     
     CONSTRAINT PK_BTR_FakturQtyHarga PRIMARY KEY CLUSTERED(FakturQtyHargaId) 
 )
+GO
+
+CREATE INDEX IX_BTR_FakturQtyHarga_FakturId
+    ON BTR_FakturQtyHarga (FakturId, FakturQtyHargaId)
+GO

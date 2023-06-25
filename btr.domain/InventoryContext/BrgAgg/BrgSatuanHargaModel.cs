@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace btr.domain.InventoryContext.BrgAgg;
 
-public class BrgSatuanModel
+public class BrgSatuanHargaModel : IBrgKey
 {
-    public string BrgSatuanId { get; set; }
     public string BrgId { get; set; }
     public string Satuan { get; set; }
     public int Conversion { get; set; }
+    public double HargaJual { get; set; }
 }

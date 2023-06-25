@@ -1,4 +1,5 @@
 ﻿using btr.application.InventoryContext.BrgAgg.Contracts;
+using btr.application.InventoryContext.BrgAgg.Workers;
 using btr.application.InventoryContext.WarehouseAgg.Contracts;
 using btr.application.SalesContext.CustomerAgg.Contracts;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
@@ -30,19 +31,19 @@ public class FakturBuilder : IFakturBuilder
     private readonly ICustomerDal _customerDal;
     private readonly ISalesPersonDal _salesPersonDal;
     private readonly IWarehouseDal _warehouseDal;
-    private readonly IBrgDal _brgDal;
+    private readonly IBrgBuilder _brgBuilder;
     private readonly DateTimeProvider _dateTime;
 
     public FakturBuilder(ICustomerDal customerDal, 
         ISalesPersonDal salesPersonDal, 
         IWarehouseDal warehouseDal, 
-        IBrgDal brgDal, 
+        IBrgBuilder brgBuilder, 
         DateTimeProvider dateTime)
     {
         _customerDal = customerDal;
         _salesPersonDal = salesPersonDal;
         _warehouseDal = warehouseDal;
-        _brgDal = brgDal;
+        _brgBuilder = brgBuilder;
         _dateTime = dateTime;
     }
 
@@ -58,7 +59,8 @@ public class FakturBuilder : IFakturBuilder
         {
             CreateTime = _dateTime.Now,
             LastUpdate = new DateTime(3000, 1, 1),
-            UserId = userKey.UserId
+            UserId = userKey.UserId,
+            ListItem = new List<FakturItemModel>()
         };
         return this;
     }
@@ -111,9 +113,8 @@ public class FakturBuilder : IFakturBuilder
             .DefaultIfEmpty(new FakturItemModel() { NoUrut = 0 })
             .Max(x => x.NoUrut);
         var noUrut = noUrutMax + 1;
-        
-        var brg = _brgDal.GetData(brgKey)
-            ?? throw new KeyNotFoundException($"BrgId not found ({brgKey.BrgId})");
+
+        var brg = _brgBuilder.Load(brgKey).Build();
         var newItem = new FakturItemModel
         {
             BrgId = brgKey.BrgId,
@@ -138,10 +139,10 @@ public class FakturBuilder : IFakturBuilder
     {
         var result = new List<FakturQtyHargaModel>();
         var qtys = ParseStringMultiNumber(qtyString, 3);
-        var satuanBesar = brg.ListSatuan.OrderBy(x => x.Conversion).Last();
-        var satuanKecil = brg.ListSatuan.OrderBy(x => x.Conversion).First();
-        var hrgBesar = brg.ListHarga.FirstOrDefault(x => x.Satuan == satuanBesar.Satuan)?.HargaJual??0;        
-        var hrgKecil = brg.ListHarga.FirstOrDefault(x => x.Satuan == satuanKecil.Satuan)?.HargaJual??0;
+        var satuanBesar = brg.ListSatuanHarga.OrderBy(x => x.Conversion).Last();
+        var satuanKecil = brg.ListSatuanHarga.OrderBy(x => x.Conversion).First();
+        var hrgBesar = brg.ListSatuanHarga.FirstOrDefault(x => x.Satuan == satuanBesar.Satuan)?.HargaJual??0;        
+        var hrgKecil = brg.ListSatuanHarga.FirstOrDefault(x => x.Satuan == satuanKecil.Satuan)?.HargaJual??0;
 
         result.Add(new FakturQtyHargaModel(1, brg.BrgId, satuanBesar.Satuan, 
             satuanBesar.Conversion, (int)qtys[0], hrgBesar));
