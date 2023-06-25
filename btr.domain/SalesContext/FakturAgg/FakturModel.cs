@@ -1,5 +1,5 @@
 ﻿using btr.domain.InventoryContext.WarehouseAgg;
-using btr.domain.SalesContext.OutletAgg;
+using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
 
 namespace btr.domain.SalesContext.FakturAgg;

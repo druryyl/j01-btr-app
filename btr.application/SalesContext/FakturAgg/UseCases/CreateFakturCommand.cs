@@ -2,8 +2,8 @@
 using btr.application.SalesContext.FakturAgg.Workers;
 using btr.domain.InventoryContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
+using btr.domain.SalesContext.CustomerAgg;
 using btr.domain.SalesContext.FakturAgg;
-using btr.domain.SalesContext.OutletAgg;
 using btr.domain.SalesContext.SalesPersonAgg;
 using btr.domain.SupportContext.UserAgg;
 using Dawn;

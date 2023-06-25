@@ -1,4 +1,4 @@
-﻿using btr.domain.SalesContext.OutletAgg;
+﻿using btr.domain.SalesContext.CustomerAgg;
 using Nuna.Lib.DataAccessHelper;
 
 namespace btr.application.SalesContext.CustomerAgg.Contracts;

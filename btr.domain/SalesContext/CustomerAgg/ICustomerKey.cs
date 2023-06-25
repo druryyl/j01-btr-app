@@ -1,4 +1,4 @@
-﻿namespace btr.domain.SalesContext.OutletAgg;
+﻿namespace btr.domain.SalesContext.CustomerAgg;
 
 public interface ICustomerKey
 {
