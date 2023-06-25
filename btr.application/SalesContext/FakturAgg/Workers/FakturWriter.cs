@@ -15,21 +15,21 @@ public class FakturWriter : IFakturWriter
 {
     private readonly IFakturDal _fakturDal;
     private readonly IFakturItemDal _fakturItemDal;
-    private readonly IFakturStokHargaDal _fakturStokHargaDal;
+    private readonly IFakturQtyHargaDal _fakturQtyHargaDal;
     private readonly IFakturDiscountDal _fakturDiscountDal;
     private readonly INunaCounterBL _counter;
     private readonly IValidator<FakturModel> _validator;
 
     public FakturWriter(IFakturDal fakturDal, 
         IFakturItemDal fakturItemDal, 
-        IFakturStokHargaDal fakturStokHargaDal, 
+        IFakturQtyHargaDal fakturQtyHargaDal, 
         IFakturDiscountDal fakturDiscountDal, 
         INunaCounterBL counter, 
         IValidator<FakturModel> validator)
     {
         _fakturDal = fakturDal;
         _fakturItemDal = fakturItemDal;
-        _fakturStokHargaDal = fakturStokHargaDal;
+        _fakturQtyHargaDal = fakturQtyHargaDal;
         _fakturDiscountDal = fakturDiscountDal;
         _counter = counter;
         _validator = validator;
@@ -73,11 +73,11 @@ public class FakturWriter : IFakturWriter
             _fakturDal.Update(model);
 
         _fakturItemDal.Delete(model);
-        _fakturStokHargaDal.Delete(model);
+        _fakturQtyHargaDal.Delete(model);
         _fakturDiscountDal.Delete(model);
 
         _fakturItemDal.Insert(model.ListItem);
-        _fakturStokHargaDal.Insert(allStokHarga);
+        _fakturQtyHargaDal.Insert(allStokHarga);
         _fakturDiscountDal.Insert(allDiscount);
         
         trans.Complete();

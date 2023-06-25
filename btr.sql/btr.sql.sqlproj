@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Database\create-database.sql" />
+    <Build Include="Tables\InventoryContext\BTR_Brg.sql" />
     <Build Include="Tables\InventoryContext\BTR_Warehouse.sql" />
     <Build Include="Tables\SalesContext\BTR_Customer.sql" />
     <Build Include="Tables\SalesContext\BTR_Faktur.sql" />
