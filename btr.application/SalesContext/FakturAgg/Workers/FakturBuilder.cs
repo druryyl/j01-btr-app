@@ -2,6 +2,7 @@
 using btr.application.InventoryContext.BrgAgg.Workers;
 using btr.application.InventoryContext.WarehouseAgg.Contracts;
 using btr.application.SalesContext.CustomerAgg.Contracts;
+using btr.application.SalesContext.FakturAgg.Contracts;
 using btr.application.SalesContext.SalesPersonAgg.Contracts;
 using btr.domain.InventoryContext.BrgAgg;
 using btr.domain.InventoryContext.WarehouseAgg;
@@ -17,6 +18,7 @@ namespace btr.application.SalesContext.FakturAgg.Workers;
 public interface IFakturBuilder : INunaBuilder<FakturModel>
 {
     IFakturBuilder CreateNew(IUserKey userKey);
+    IFakturBuilder Load(IFakturKey fakturKey);
     IFakturBuilder Attach(FakturModel faktur);
     IFakturBuilder FakturDate(DateTime fakturDate);
     IFakturBuilder Customer(ICustomerKey customerKey);
@@ -29,18 +31,32 @@ public interface IFakturBuilder : INunaBuilder<FakturModel>
 public class FakturBuilder : IFakturBuilder
 {
     private FakturModel _aggRoot = new();
+    private readonly IFakturDal _fakturDal;
+    private readonly IFakturItemDal _fakturItemDal;
+    private readonly IFakturQtyHargaDal _fakturQtyHargaDal;
+    private readonly IFakturDiscountDal _fakturDiscountDal;
+    
     private readonly ICustomerDal _customerDal;
     private readonly ISalesPersonDal _salesPersonDal;
     private readonly IWarehouseDal _warehouseDal;
     private readonly IBrgBuilder _brgBuilder;
     private readonly DateTimeProvider _dateTime;
 
-    public FakturBuilder(ICustomerDal customerDal, 
+    public FakturBuilder(IFakturDal fakturDal, 
+        IFakturItemDal fakturItemDal, 
+        IFakturQtyHargaDal fakturQtyHargaDal, 
+        IFakturDiscountDal fakturDiscountDal, 
+        ICustomerDal customerDal, 
         ISalesPersonDal salesPersonDal, 
         IWarehouseDal warehouseDal, 
         IBrgBuilder brgBuilder, 
         DateTimeProvider dateTime)
     {
+        _fakturDal = fakturDal;
+        _fakturItemDal = fakturItemDal;
+        _fakturQtyHargaDal = fakturQtyHargaDal;
+        _fakturDiscountDal = fakturDiscountDal;
+
         _customerDal = customerDal;
         _salesPersonDal = salesPersonDal;
         _warehouseDal = warehouseDal;
@@ -63,6 +79,27 @@ public class FakturBuilder : IFakturBuilder
             UserId = userKey.UserId,
             ListItem = new List<FakturItemModel>()
         };
+        return this;
+    }
+
+    public IFakturBuilder Load(IFakturKey fakturKey)
+    {
+        _aggRoot = _fakturDal.GetData(fakturKey)
+            ?? throw new KeyNotFoundException($"Faktur nof found ({fakturKey.FakturId})");
+        _aggRoot.ListItem = _fakturItemDal.ListData(fakturKey)?.ToList()
+            ?? new List<FakturItemModel>();
+
+        var allQtyHarga = _fakturQtyHargaDal.ListData(fakturKey)?.ToList()
+            ?? new List<FakturQtyHargaModel>();
+        var allDiscount = _fakturDiscountDal.ListData(fakturKey)?.ToList()
+            ?? new List<FakturDiscountModel>();
+
+        foreach (var item in _aggRoot.ListItem)
+        {
+            item.ListQtyHarga = allQtyHarga.Where(x => x.FakturItemId == item.FakturItemId).ToList();
+            item.ListDiscount = allDiscount.Where(x => x.FakturItemId == item.FakturItemId).ToList();
+        }
+
         return this;
     }
 

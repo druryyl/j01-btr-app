@@ -24,4 +24,21 @@ public class FakturController : ControllerBase
         return Ok(new JSendOk(result));
     }
     
+    [HttpGet]
+    [Route("List/{tgl1}/{tgl2}")]
+    public async Task<IActionResult> CreateFaktur(string tgl1, string tgl2)
+    {
+        var query = new ListFakturQuery(tgl1, tgl2);
+        var result = await _mediator.Send(query);
+        return Ok(new JSendOk(result));
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<IActionResult> CreateFaktur(string id)
+    {
+        var query = new GetFakturQuery(id);
+        var result = await _mediator.Send(query);
+        return Ok(new JSendOk(result));
+    }
 }
