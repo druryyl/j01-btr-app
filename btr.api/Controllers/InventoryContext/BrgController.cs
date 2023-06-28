@@ -18,9 +18,9 @@ public class BrgController : Controller
 
     [HttpGet]
     [Route("{id}")]   
-    public async Task<IActionResult> CreateFaktur(string id)
+    public async Task<IActionResult> GetBrgHarga(string id)
     {
-        var query = new GetBrgQuery(id);
+        var query = new GetBrgHargaQuery(id);
         var result = await _mediator.Send(query);
         return Ok(new JSendOk(result));
     }

@@ -6,16 +6,16 @@ using MediatR;
 
 namespace btr.application.InventoryContext.BrgAgg.UseCases;
 
-public record GetBrgQuery(string BrgId) : IRequest<GetBrgResponse>, IBrgKey;
+public record GetBrgHargaQuery(string BrgId) : IRequest<GetBrgHargaResponse>, IBrgKey;
 
-public class GetBrgResponse
+public class GetBrgHargaResponse
 {
     public string BrgId { get; set; }
     public string BrgName { get; set;}
-    public List<GetBrgResponseSatuanHrg> ListSatuanHarga { get; set; }
+    public List<GetBrgHargaResponseSatuanHrg> ListSatuanHarga { get; set; }
 }
 
-public class GetBrgResponseSatuanHrg
+public class GetBrgHargaResponseSatuanHrg
 {
     public string BrgId { get; set; }
     public string Satuan { get; set; }
@@ -24,17 +24,17 @@ public class GetBrgResponseSatuanHrg
     public double HargaJual { get; set; }
 }
 
-public class GetBrgHandler : IRequestHandler<GetBrgQuery, GetBrgResponse>
+public class GetBrgHargaHandler : IRequestHandler<GetBrgHargaQuery, GetBrgHargaResponse>
 {
     private BrgModel _aggRoot = new();
     private IBrgBuilder _builder;
 
-    public GetBrgHandler(IBrgBuilder builder)
+    public GetBrgHargaHandler(IBrgBuilder builder)
     {
         _builder = builder;
     }
 
-    public Task<GetBrgResponse> Handle(GetBrgQuery request, CancellationToken cancellationToken)
+    public Task<GetBrgHargaResponse> Handle(GetBrgHargaQuery request, CancellationToken cancellationToken)
     {
         //  GUARD
         Guard.Argument(() => request)
@@ -49,9 +49,9 @@ public class GetBrgHandler : IRequestHandler<GetBrgQuery, GetBrgResponse>
         return Task.FromResult(GenResponse());
     }
 
-    private GetBrgResponse GenResponse()
+    private GetBrgHargaResponse GenResponse()
     {
-        var result = _aggRoot.Adapt<GetBrgResponse>();
+        var result = _aggRoot.Adapt<GetBrgHargaResponse>();
         return result;
     }
 }
